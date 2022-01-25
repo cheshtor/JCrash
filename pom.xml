@@ -8,7 +8,8 @@
     <artifactId>JCrash</artifactId>
     <version>1.0.0</version>
     <modules>
-        <module>jcrash-core</module>
+        <module>dubbo-scanner</module>
+        <module>oap</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -37,6 +38,12 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>1.18.22</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.32</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
