@@ -33,7 +33,7 @@ public class MethodStructure implements Serializable {
      * 获取方法返回值类型的字符串描述
      * @return 方法返回值类型的字符串描述
      */
-    public String getReturnTypeDeclaring() {
+    public String getLiteralReturnType() {
         return StructureResolver.restoreLiteralTypeDeclaring(returnType);
     }
 
@@ -41,9 +41,9 @@ public class MethodStructure implements Serializable {
      * 获取整个方法的签名
      * @return 整个方法的签名
      */
-    public String getMethodDeclaring() {
-        String paramList = params.stream().map(MethodParamStructure::getParamDeclaring).collect(Collectors.joining(", "));
-        return getReturnTypeDeclaring() + " " + methodName + "(" + paramList +  ");";
+    public String getLiteralMethod() {
+        String paramList = params.stream().map(MethodParamStructure::getLiteralParam).collect(Collectors.joining(", "));
+        return getLiteralReturnType() + " " + methodName + "(" + paramList +  ");";
     }
 
     public String getMethodName() {

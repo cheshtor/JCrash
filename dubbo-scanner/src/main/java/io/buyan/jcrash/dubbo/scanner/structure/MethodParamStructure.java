@@ -25,7 +25,7 @@ public class MethodParamStructure implements Serializable {
     /**
      * 字符串形式的参数表示
      */
-    public String getParamDeclaring() {
+    public String getLiteralParam() {
         return StructureResolver.restoreLiteralTypeDeclaring(typeStructure) + " " + name;
     }
 
