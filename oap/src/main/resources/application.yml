@@ -1,0 +1,19 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: beauty-leaf-server
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://gz-cdb-gm0faz3h.sql.tencentcdb.com:57956/jcrash?useSSL=false&serverTimezone=GMT%2b8
+    username: root
+    password: 7788uJmki*
+    hikari:
+      max-lifetime: 180000
+      idle-timeout: 30000
+      minimum-idle: 3
+      maximum-pool-size: 20
+      connection-test-query: SELECT 1
+mybatis:
+  mapper-locations: classpath:mappers/*.xml
+  config-location: classpath:mybatis-config.xml

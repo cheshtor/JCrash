@@ -23,6 +23,12 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>io.buyan</groupId>
+                <artifactId>dubbo-scanner</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.apache.dubbo</groupId>
                 <artifactId>dubbo</artifactId>
                 <version>${dubbo.version}</version>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.buyan.jcrash.oap.dao.DubboMethodDao">
+  <resultMap id="BaseResultMap" type="io.buyan.jcrash.oap.entity.DubboMethod">
+    <!--@mbg.generated-->
+    <!--@Table dubbo_method-->
+    <id column="id" property="id" />
+    <result column="interface_id" property="interfaceId" />
+    <result column="method_name" property="methodName" />
+    <result column="return_type_json" property="returnTypeJson" />
+    <result column="literal_return_type" property="literalReturnType" />
+    <result column="literal_method" property="literalMethod" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, interface_id, method_name, return_type_json, literal_return_type, literal_method
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from dubbo_method
+    where id = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--@mbg.generated-->
+    delete from dubbo_method
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="io.buyan.jcrash.oap.entity.DubboMethod" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into dubbo_method (interface_id, method_name, return_type_json, literal_return_type, literal_method
+      )
+    values (#{interfaceId}, #{methodName}, #{returnTypeJson}, #{literalReturnType}, #{literalMethod}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="io.buyan.jcrash.oap.entity.DubboMethod" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into dubbo_method
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="interfaceId != null">
+        interface_id,
+      </if>
+      <if test="methodName != null">
+        method_name,
+      </if>
+      <if test="returnTypeJson != null">
+        return_type_json,
+      </if>
+      <if test="literalReturnType != null">
+        literal_return_type,
+      </if>
+      <if test="literalMethod != null">
+        literal_method,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="interfaceId != null">
+        #{interfaceId},
+      </if>
+      <if test="methodName != null">
+        #{methodName},
+      </if>
+      <if test="returnTypeJson != null">
+        #{returnTypeJson},
+      </if>
+      <if test="literalReturnType != null">
+        #{literalReturnType},
+      </if>
+      <if test="literalMethod != null">
+        #{literalMethod},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="io.buyan.jcrash.oap.entity.DubboMethod">
+    <!--@mbg.generated-->
+    update dubbo_method
+    <set>
+      <if test="interfaceId != null">
+        interface_id = #{interfaceId},
+      </if>
+      <if test="methodName != null">
+        method_name = #{methodName},
+      </if>
+      <if test="returnTypeJson != null">
+        return_type_json = #{returnTypeJson},
+      </if>
+      <if test="literalReturnType != null">
+        literal_return_type = #{literalReturnType},
+      </if>
+      <if test="literalMethod != null">
+        literal_method = #{literalMethod},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="io.buyan.jcrash.oap.entity.DubboMethod">
+    <!--@mbg.generated-->
+    update dubbo_method
+    set interface_id = #{interfaceId},
+      method_name = #{methodName},
+      return_type_json = #{returnTypeJson},
+      literal_return_type = #{literalReturnType},
+      literal_method = #{literalMethod}
+    where id = #{id}
+  </update>
+</mapper>

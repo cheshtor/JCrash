@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.buyan.jcrash.oap.dao.DubboInterfaceDao">
+    <resultMap id="BaseResultMap" type="io.buyan.jcrash.oap.entity.DubboInterface">
+        <!--@mbg.generated-->
+        <!--@Table dubbo_interface-->
+        <id column="id" property="id"/>
+        <result column="jar_id" property="jarId"/>
+        <result column="classname" property="classname"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, jar_id, classname
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from dubbo_interface
+        where id = #{id}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete
+        from dubbo_interface
+        where id = #{id}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="io.buyan.jcrash.oap.entity.DubboInterface"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into dubbo_interface (jar_id, classname)
+        values (#{jarId}, #{classname})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id"
+            parameterType="io.buyan.jcrash.oap.entity.DubboInterface" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into dubbo_interface
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="jarId != null">
+                jar_id,
+            </if>
+            <if test="classname != null">
+                classname,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="jarId != null">
+                #{jarId},
+            </if>
+            <if test="classname != null">
+                #{classname},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="io.buyan.jcrash.oap.entity.DubboInterface">
+        <!--@mbg.generated-->
+        update dubbo_interface
+        <set>
+            <if test="jarId != null">
+                jar_id = #{jarId},
+            </if>
+            <if test="classname != null">
+                classname = #{classname},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="io.buyan.jcrash.oap.entity.DubboInterface">
+        <!--@mbg.generated-->
+        update dubbo_interface
+        set jar_id    = #{jarId},
+            classname = #{classname}
+        where id = #{id}
+    </update>
+</mapper>
