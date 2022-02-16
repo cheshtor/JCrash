@@ -78,3 +78,13 @@ CREATE TABLE `custom_bean_field`
     `field_type` VARCHAR(256) NOT NULL COMMENT '字段类型',
     PRIMARY KEY `pk_id` (`id`)
 );
+
+DROP TABLE IF EXISTS `project_global_error`;
+CREATE TABLE `project_global_error`
+(
+    `id` BIGINT AUTO_INCREMENT COMMENT '全局异常 ID',
+    `project_id`BIGINT NOT NULL COMMENT '关联项目 ID',
+    `item_name` VARCHAR(256) NOT NULL COMMENT '异常项目名称',
+    `message` VARCHAR(256) NOT NULL COMMENT '异常信息',
+    PRIMARY KEY `pk_id` (`id`)
+);

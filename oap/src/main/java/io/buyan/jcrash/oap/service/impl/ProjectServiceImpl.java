@@ -77,16 +77,34 @@ public class ProjectServiceImpl implements ProjectService{
     @Resource
     private CustomBeanFieldDao customBeanFieldDao;
 
+    @Resource
+    private ProjectGlobalErrorDao projectGlobalErrorDao;
+
     @Override
     @Transactional
     public boolean saveScanResult(Result result) {
         Map<String, String> globalError = result.getGlobalError();
         Map<String, Map<String, String>> beanProperty = result.getBeanProperty();
         List<JarStructure> jars = result.getJars();
+
+        long projectId = 1L;
+
+        if (!globalError.isEmpty()) {
+            List<ProjectGlobalError> errors = new ArrayList<>();
+            globalError.forEach((itemName, message) -> {
+                ProjectGlobalError error = new ProjectGlobalError();
+                error.setProjectId(projectId);
+                error.setItemName(itemName);
+                error.setMessage(message);
+                errors.add(error);
+            });
+            projectGlobalErrorDao.insert(errors);
+        }
+
         for (JarStructure jar : jars) {
             // 保存 Jar
             DubboJar dubboJar = new DubboJar();
-            dubboJar.setProjectId(1L);
+            dubboJar.setProjectId(projectId);
             dubboJar.setName(jar.getJarName());
             dubboJarDao.insert(dubboJar);
             Long jarId = dubboJar.getId();
@@ -147,7 +165,7 @@ public class ProjectServiceImpl implements ProjectService{
         if (!beanProperty.isEmpty()) {
             beanProperty.forEach((classname, properties) -> {
                 CustomBean customBean = new CustomBean();
-                customBean.setProjectId(1L);
+                customBean.setProjectId(projectId);
                 customBean.setClassname(classname);
                 customBeanDao.insert(customBean);
                 Long customBeanId = customBean.getId();
