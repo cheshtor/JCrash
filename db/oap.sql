@@ -14,6 +14,7 @@ CREATE TABLE `dubbo_jar`
 (
     `id` BIGINT AUTO_INCREMENT COMMENT 'Jar 包 ID',
     `project_id`BIGINT NOT NULL COMMENT '关联项目 ID',
+    `scan_version` BIGINT NOT NULL COMMENT '扫描版本',
     `name` VARCHAR(128) NOT NULL COMMENT 'Jar 包名称',
     PRIMARY KEY `pk_jar_id` (`id`)
 );
