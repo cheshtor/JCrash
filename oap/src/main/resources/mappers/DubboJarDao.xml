@@ -29,6 +29,17 @@
     insert into dubbo_jar (project_id, `name`)
     values (#{projectId}, #{name})
   </insert>
+
+
+  <insert id="batchInsert" keyColumn="id" keyProperty="list.id" useGeneratedKeys="true">
+    insert into dubbo_jar (project_id, `name`)
+    values
+    <foreach collection="list" item="jar" separator=",">
+      (#{jar.projectId}, #{jar.name})
+    </foreach>
+  </insert>
+
+
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="io.buyan.jcrash.oap.entity.DubboJar" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into dubbo_jar

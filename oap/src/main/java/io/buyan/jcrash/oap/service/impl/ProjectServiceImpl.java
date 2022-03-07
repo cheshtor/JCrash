@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 
@@ -79,6 +80,74 @@ public class ProjectServiceImpl implements ProjectService{
 
     @Resource
     private ProjectGlobalErrorDao projectGlobalErrorDao;
+
+    private long projectId = 1L;
+
+    public boolean saveResult(Result result) {
+        Map<String, String> globalError = result.getGlobalError();
+        Map<String, Map<String, String>> beanProperty = result.getBeanProperty();
+        List<JarStructure> jars = result.getJars();
+
+        long projectId = 1L;
+        if (!globalError.isEmpty()) {
+            List<ProjectGlobalError> errors = new ArrayList<>();
+            globalError.forEach((itemName, message) -> {
+                ProjectGlobalError error = new ProjectGlobalError();
+                error.setProjectId(projectId);
+                error.setItemName(itemName);
+                error.setMessage(message);
+                errors.add(error);
+            });
+            projectGlobalErrorDao.insert(errors);
+        }
+
+
+        return true;
+    }
+
+    private void saveJars(List<JarStructure> jars) {
+        List<DubboJar> dubboJars = new ArrayList<>();
+        for (JarStructure jar : jars) {
+            DubboJar dubboJar = new DubboJar();
+            dubboJar.setProjectId(projectId);
+            dubboJar.setName(jar.getJarName());
+            dubboJars.add(dubboJar);
+        }
+        if (!dubboJars.isEmpty()) {
+            dubboJarDao.batchInsert(dubboJars);
+        }
+        // Jar 解析异常
+        List<DubboJarError> jarErrors = new ArrayList<>();
+        // Jar 接口
+        List<DubboInterface> dubboInterfaces = new ArrayList<>();
+        for (JarStructure jar : jars) {
+            // 按名称和已入库的 Jar 包匹配，获取自增主键
+            Optional<DubboJar> matchJar = dubboJars.stream()
+                    .filter(dubboJar -> dubboJar.getName().equals(jar.getJarName()))
+                    .findAny();
+            if (!matchJar.isPresent()) {
+                continue;
+            }
+            Long dubboJarId = matchJar.get().getId();
+            Map<String, String> errors = jar.getErrors();
+            if (!errors.isEmpty()) {
+                for (Map.Entry<String, String> entry : errors.entrySet()) {
+                    DubboJarError jarError = new DubboJarError();
+                    jarError.setJarId(dubboJarId);
+                    jarError.setClassname(entry.getKey());
+                    jarError.setMessage(entry.getValue());
+                    jarErrors.add(jarError);
+                }
+            }
+            List<InterfaceStructure> interfaces = jar.getInterfaces();
+            for (InterfaceStructure itf : interfaces) {
+                DubboInterface dubboInterface = new DubboInterface();
+                dubboInterface.setJarId(dubboJarId);
+                dubboInterface.setClassname(itf.getClassname());
+                dubboInterfaces.add(dubboInterface);
+            }
+        }
+    }
 
     @Override
     @Transactional
