@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.buyan.jcrash.oap.dao.CustomBeanFieldMapper">
+    <resultMap id="BaseResultMap" type="io.buyan.jcrash.oap.entity.CustomBeanField">
+        <!--@mbg.generated-->
+        <!--@Table custom_bean_field-->
+        <id column="id" property="id"/>
+        <result column="bean_id" property="beanId"/>
+        <result column="field_name" property="fieldName"/>
+        <result column="field_type" property="fieldType"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, bean_id, field_name, field_type
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from custom_bean_field
+        where id = #{id}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete
+        from custom_bean_field
+        where id = #{id}
+    </delete>
+    <insert id="insert" parameterType="io.buyan.jcrash.oap.entity.CustomBeanField">
+        <!--@mbg.generated-->
+        insert into custom_bean_field (id, bean_id, field_name, field_type)
+        values (#{id}, #{beanId}, #{fieldName}, #{fieldType})
+    </insert>
+
+    <insert id="batchInsert">
+        insert into custom_bean_field (id, bean_id, field_name, field_type)
+        values
+        <foreach collection="list" separator="," item="bf">
+            (#{bf.id}, #{bf.beanId}, #{bf.fieldName}, #{bf.fieldType})
+        </foreach>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="io.buyan.jcrash.oap.entity.CustomBeanField">
+        <!--@mbg.generated-->
+        update custom_bean_field
+        <set>
+            <if test="beanId != null">
+                bean_id = #{beanId},
+            </if>
+            <if test="fieldName != null">
+                field_name = #{fieldName},
+            </if>
+            <if test="fieldType != null">
+                field_type = #{fieldType},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

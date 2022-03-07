@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.buyan.jcrash.oap.dao.ProjectMapper">
+    <resultMap id="BaseResultMap" type="io.buyan.jcrash.oap.entity.Project">
+        <!--@mbg.generated-->
+        <!--@Table project-->
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, `name`
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from project
+        where id = #{id}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete
+        from project
+        where id = #{id}
+    </delete>
+    <insert id="insert" parameterType="io.buyan.jcrash.oap.entity.Project">
+        <!--@mbg.generated-->
+        insert into project (id, `name`)
+        values (#{id}, #{name})
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="io.buyan.jcrash.oap.entity.Project">
+        <!--@mbg.generated-->
+        update project
+        <set>
+            <if test="name != null">
+                `name` = #{name},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

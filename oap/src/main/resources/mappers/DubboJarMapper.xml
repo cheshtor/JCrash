@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.buyan.jcrash.oap.dao.DubboJarMapper">
+    <resultMap id="BaseResultMap" type="io.buyan.jcrash.oap.entity.DubboJar">
+        <!--@mbg.generated-->
+        <!--@Table dubbo_jar-->
+        <id column="id" property="id"/>
+        <result column="project_id" property="projectId"/>
+        <result column="scan_version" property="scanVersion"/>
+        <result column="name" property="name"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        id, project_id, scan_version, `name`
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from dubbo_jar
+        where id = #{id}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        <!--@mbg.generated-->
+        delete
+        from dubbo_jar
+        where id = #{id}
+    </delete>
+    <insert id="insert" parameterType="io.buyan.jcrash.oap.entity.DubboJar">
+        <!--@mbg.generated-->
+        insert into dubbo_jar (id, project_id, scan_version, `name`)
+        values (#{id}, #{projectId}, #{scanVersion}, #{name})
+    </insert>
+
+    <insert id="batchInsert">
+        insert into dubbo_jar (id, project_id, scan_version, `name`)
+        values
+        <foreach collection="list" separator="," item="jar">
+            (#{jar.id}, #{jar.projectId}, #{jar.scanVersion}, #{jar.name})
+        </foreach>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="io.buyan.jcrash.oap.entity.DubboJar">
+        <!--@mbg.generated-->
+        update dubbo_jar
+        <set>
+            <if test="projectId != null">
+                project_id = #{projectId},
+            </if>
+            <if test="scanVersion != null">
+                scan_version = #{scanVersion},
+            </if>
+            <if test="name != null">
+                `name` = #{name},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>

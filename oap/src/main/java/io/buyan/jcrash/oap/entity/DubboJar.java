@@ -24,6 +24,11 @@ public class DubboJar implements Serializable {
     private Long projectId;
 
     /**
+     * 扫描版本
+     */
+    private Long scanVersion;
+
+    /**
      * Jar 包名称
      */
     private String name;

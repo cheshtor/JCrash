@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="io.buyan.jcrash.oap.dao.ProjectGlobalErrorDao">
+<mapper namespace="io.buyan.jcrash.oap.dao.ProjectGlobalErrorMapper">
     <resultMap id="BaseResultMap" type="io.buyan.jcrash.oap.entity.ProjectGlobalError">
         <!--@mbg.generated-->
         <!--@Table project_global_error-->
@@ -26,42 +26,20 @@
         from project_global_error
         where id = #{id}
     </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="io.buyan.jcrash.oap.entity.ProjectGlobalError"
-            useGeneratedKeys="true">
+    <insert id="insert" parameterType="io.buyan.jcrash.oap.entity.ProjectGlobalError">
         <!--@mbg.generated-->
-        insert into project_global_error (project_id, item_name, message)
+        insert into project_global_error (id, project_id, item_name, message)
+        values (#{id}, #{projectId}, #{itemName}, #{message})
+    </insert>
+
+    <insert id="batchInsert">
+        insert into project_global_error (id, project_id, item_name, message)
         values
-        <foreach collection="list" item="e" separator=",">
-            (#{e.projectId}, #{e.itemName}, #{e.message})
+        <foreach collection="list" separator="," item="e">
+            (#{e.id}, #{e.projectId}, #{e.itemName}, #{e.message})
         </foreach>
     </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id"
-            parameterType="io.buyan.jcrash.oap.entity.ProjectGlobalError" useGeneratedKeys="true">
-        <!--@mbg.generated-->
-        insert into project_global_error
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="projectId != null">
-                project_id,
-            </if>
-            <if test="itemName != null">
-                item_name,
-            </if>
-            <if test="message != null">
-                message,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="projectId != null">
-                #{projectId},
-            </if>
-            <if test="itemName != null">
-                #{itemName},
-            </if>
-            <if test="message != null">
-                #{message},
-            </if>
-        </trim>
-    </insert>
+
     <update id="updateByPrimaryKeySelective" parameterType="io.buyan.jcrash.oap.entity.ProjectGlobalError">
         <!--@mbg.generated-->
         update project_global_error
@@ -76,14 +54,6 @@
                 message = #{message},
             </if>
         </set>
-        where id = #{id}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="io.buyan.jcrash.oap.entity.ProjectGlobalError">
-        <!--@mbg.generated-->
-        update project_global_error
-        set project_id = #{projectId},
-            item_name  = #{itemName},
-            message    = #{message}
         where id = #{id}
     </update>
 </mapper>
