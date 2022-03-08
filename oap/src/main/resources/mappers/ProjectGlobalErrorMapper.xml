@@ -34,7 +34,7 @@
 
     <insert id="batchInsert">
         insert into project_global_error (id, project_id, item_name, message)
-        values
+                values
         <foreach collection="list" separator="," item="e">
             (#{e.id}, #{e.projectId}, #{e.itemName}, #{e.message})
         </foreach>

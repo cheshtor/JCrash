@@ -1,6 +1,5 @@
 package io.buyan.jcrash.oap.service;
 
-import io.buyan.jcrash.dubbo.scanner.structure.Result;
 import io.buyan.jcrash.oap.entity.Project;
 
 /**
@@ -12,7 +11,5 @@ import io.buyan.jcrash.oap.entity.Project;
 public interface ProjectService {
 
     long createProject(Project project);
-
-    void saveScanResult(Result scanResult, Long projectId);
 
 }
