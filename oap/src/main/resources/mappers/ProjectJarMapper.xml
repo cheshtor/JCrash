@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.buyan.jcrash.oap.dao.ProjectJarMapper">
+    <resultMap id="BaseResultMap" type="io.buyan.jcrash.oap.entity.ProjectJar">
+        <!--@mbg.generated-->
+        <!--@Table project_jar-->
+        <id column="hash_value" property="hashValue"/>
+        <result column="project_id" property="projectId"/>
+        <result column="original_name" property="originalName"/>
+        <result column="url" property="url"/>
+        <result column="create_date" property="createDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        hash_value, project_id, original_name, url, create_date
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from project_jar
+        where hash_value = #{hashValue}
+    </select>
+
+    <select id="findByHashValue" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from project_jar
+        where hash_value in
+        <foreach collection="list" item="h" separator="," open="(" close=")">
+            #{h}
+        </foreach>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        <!--@mbg.generated-->
+        delete
+        from project_jar
+        where hash_value = #{hashValue}
+    </delete>
+    <insert id="insert" parameterType="io.buyan.jcrash.oap.entity.ProjectJar">
+        <!--@mbg.generated-->
+        insert into project_jar (hash_value, project_id, original_name, url)
+        values (#{hashValue}, #{projectId}, #{originalName}, #{url})
+    </insert>
+
+    <insert id="batchInsert">
+        insert into project_jar (hash_value, project_id, original_name, url)
+        values
+        <foreach collection="list" item="j" separator=",">
+            (#{j.hashValue}, #{j.projectId}, #{j.originalName}, #{j.url})
+        </foreach>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="io.buyan.jcrash.oap.entity.ProjectJar">
+        <!--@mbg.generated-->
+        update project_jar
+        <set>
+            <if test="projectId != null">
+                project_id = #{projectId},
+            </if>
+            <if test="originalName != null">
+                original_name = #{originalName},
+            </if>
+            <if test="url != null">
+                url = #{url},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate},
+            </if>
+        </set>
+        where hash_value = #{hashValue}
+    </update>
+</mapper>

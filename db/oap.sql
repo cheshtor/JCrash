@@ -89,3 +89,14 @@ CREATE TABLE `project_global_error`
     `message` VARCHAR(256) NOT NULL COMMENT '异常信息',
     PRIMARY KEY `pk_id` (`id`)
 );
+
+DROP TABLE IF EXISTS `project_jar`;
+CREATE TABLE `project_jar`
+(
+    `project_id`BIGINT NOT NULL COMMENT '关联项目 ID',
+    `original_name` VARCHAR(256) NOT NULL COMMENT 'Jar 文件原名',
+    `url` VARCHAR(256) NOT NULL COMMENT 'Jar 文件存储地址',
+    `hash_value` VARCHAR(32) NOT NULL COMMENT '文件 Hash 值',
+    `create_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP() COMMENT '存储时间',
+    PRIMARY KEY `pk_projectId_originalName` (`project_id`, `original_name`)
+);

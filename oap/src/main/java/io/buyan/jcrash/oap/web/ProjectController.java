@@ -3,10 +3,12 @@ package io.buyan.jcrash.oap.web;
 import io.buyan.jcrash.oap.common.JCrashResult;
 import io.buyan.jcrash.oap.entity.Project;
 import io.buyan.jcrash.oap.service.ProjectService;
+import io.buyan.jcrash.oap.util.upload.UploadResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 项目接口
@@ -27,9 +29,10 @@ public class ProjectController {
         return JCrashResult.success(projectId);
     }
 
-    @PostMapping(value = "/uploadJar")
-    public JCrashResult<Boolean> uploadJars(MultipartFile[] files) {
-        return JCrashResult.success(true);
+    @PostMapping(value = "/uploadJar/{projectId}")
+    public JCrashResult<List<UploadResult>> uploadJars(MultipartFile[] files, @PathVariable Long projectId) {
+        List<UploadResult> uploadResults = projectService.uploadJars(files, projectId);
+        return JCrashResult.success(uploadResults);
     }
 
 
