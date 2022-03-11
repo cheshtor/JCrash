@@ -34,4 +34,9 @@ public class ProjectJarServiceImpl implements ProjectJarService {
         int rows = projectJarMapper.batchInsert(jars);
         return rows == jars.size();
     }
+
+    @Override
+    public List<ProjectJar> findJarsByProjectId(Long projectId) {
+        return projectJarMapper.findByProjectId(projectId);
+    }
 }

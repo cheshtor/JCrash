@@ -71,4 +71,11 @@
         </set>
         where hash_value = #{hashValue}
     </update>
+
+    <select id="findByProjectId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from project_jar
+        where project_id = #{projectId}
+    </select>
 </mapper>

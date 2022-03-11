@@ -26,4 +26,6 @@ public interface ProjectJarService {
      */
     boolean saveJarInfos(List<ProjectJar> jars);
 
+    List<ProjectJar> findJarsByProjectId(Long projectId);
+
 }

@@ -20,6 +20,8 @@ public interface ProjectJarMapper {
 
     List<ProjectJar> findByHashValue(List<String> hashes);
 
+    List<ProjectJar> findByProjectId(Long projectId);
+
     ProjectJar selectByPrimaryKey(String hashValue);
 
     int updateByPrimaryKeySelective(ProjectJar record);

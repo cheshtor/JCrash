@@ -21,3 +21,7 @@ spring:
 mybatis:
   mapper-locations: classpath:mappers/*.xml
   config-location: classpath:mybatis-config.xml
+jcrash:
+  uploader:
+    disk:
+      path: /Users/brandon.p.gan/Desktop/jar-storage
